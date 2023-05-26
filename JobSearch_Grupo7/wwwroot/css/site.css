@@ -1,0 +1,57 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+.forma {
+    border-radius: 50%;
+}
+
+.car {
+    width: 80%;
+    height: 300px;
+}
+
+.ct1 {
+    background-color: #90bde4;
+    border-radius: 3em;
+    padding: 15px;
+}
+
+.ct2 {
+    background-color: #eeca96;
+    border-radius: 3em;
+    padding: 15px;
+}
+
+.bt {
+    background-color: #01559e;
+    border-radius: 3em;
+    padding: 5px;
+}
+
+.mar {
+    padding: 20px;
+    border: solid 7px #01b5f4;
+}
+
+.im {
+    border-radius: 50%;
+    width: 180px;
+    height: 180px;
+}
