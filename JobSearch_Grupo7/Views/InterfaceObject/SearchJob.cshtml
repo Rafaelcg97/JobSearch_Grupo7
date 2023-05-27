@@ -45,25 +45,34 @@
                     <li><a class="dropdown-item" href="#">Más antiguo</a></li>
                 </ul>
             </div>
+            @foreach (var item in (IEnumerable<dynamic>)(ViewData["jobResultList"])!)
+            {
+                var base64Image = Convert.ToBase64String((item.jobPicture as byte[])!);
+                var PictureSrc = String.Format("data:image/gif;base64,{0}", base64Image);
 
-            <div class="container" style="background-color: #d1ccb1;">
-                <div class="row">
-                    <div class="col-md-3 m-2">
-                        <img src="./multimedia/em2.jpg" alt="" class="im">
+                <div class="container" style="background-color: #d1ccb1;">
+                    <div class="row">
+                        <div class="col-md-3 m-2">
+                            <img src=@PictureSrc alt="" class="im">
 
-                    </div>
-                    <div class="col-md  m-3">
-                        <h2>Puesto de trabajo</h2>
-                        <h5> Nombre de la empresa </h5>
-                        <h5><i class="bi bi-geo-alt-fill"></i> Ubicación</h5>
-                        <div class="text-end">
-                            <button type="button" class="bt text-bg-primary w-25">Ver oferta</button>
                         </div>
-
-
+                        <div class="col-md  m-3">
+                            <h2>@item.jobName </h2>
+                            <h5> @item.JobCompany </h5>
+                            <h5><i class="bi bi-geo-alt-fill"></i> @item.jobCity</h5>
+                            <div class="text-end">
+                                <button type="button" class="bt text-bg-primary w-25">Ver oferta</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
+
+
+
+
+
+
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>

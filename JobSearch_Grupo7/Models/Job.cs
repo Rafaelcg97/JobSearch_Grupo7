@@ -16,7 +16,7 @@ namespace JobSearch_Grupo7.Models
         public int jobTypeId { get; set; }
 
         [Required]
-        public float jobSalary { get; set; }
+        public Double jobSalary { get; set; }
 
         [Required]
         public int jobExperienceYear { get; set; }
