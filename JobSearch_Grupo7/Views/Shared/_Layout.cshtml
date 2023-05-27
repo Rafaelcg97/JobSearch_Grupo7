@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var base64_1 = Convert.ToBase64String(ViewData["logoImage"] as byte[]);
+    var logoSrc = String.Format("data:image/gif;base64,{0}", base64_1);
+
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -15,74 +21,56 @@
     <header>
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand">
-                    <img src="./multimedia/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                <a class="navbar-brand" asp-area="" asp-controller="InterfaceObject" asp-action="Index">
+                    <img src="@logoSrc" alt="" width="30" height="24" class="d-inline-block align-text-top">
                     <b>EasyJob</b>
                 </a>
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Registrate</a>
+                        <a class="nav-link" asp-controller="InterfaceObject" asp-action="SignUp">Registrate</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link">|</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Iniciar sesión</a>
+                        <a class="nav-link" asp-controller="InterfaceObject" asp-action="SignIn">Iniciar sesión</a>
                     </li>
                 </ul>
                 </div>
         </nav>
         <nav class="navbar justify-content-center px-5" style="background-color: #e2e7ed;">
-            <form class="container-fluid">
+            <form asp-action="SearchJob" class="container-fluid">
                 <div class="input-group mt-2">
                     <span class="input-group-text"><i class="bi bi-search"></i></span>
-                    <input type="text" class="form-control">
+                    @Html.TextBox("descriptionWords","",new {@class="form-control"})
+                </div>
+                <div class="nav1 navbar justify-content-center">
+                    <div class="btn-group m-1 px-2">
+                        @Html.DropDownList("ubication", ViewData["citiesList"] as SelectList,"Todas las ubicaciones", new {@class="form-select"})
+                    </div>
+                    <div class="btn-group m-1 px-2">
+                        @Html.DropDownList("type", ViewData["jobTypesList"] as SelectList,"Todos los tipos", new {@class="form-select"})
+                    </div>
+
+                    <div class="btn-group m-1 px-2">
+                        <label style="margin-right:10px">Rango Salarial:</label><br />
+                        <input type="range" id="salary" name="salary" min="0" max="3000" step="100" vaue=@ViewData["SalaryRange"] onInput="$('#salaryPrompt').html($(this).val())" />
+                        <label id="salaryPrompt">@ViewData["SalaryRange"]</label>
+                    </div>
+
+                    <div class="btn-group m-1 px-2">
+                        <label style="margin-right:10px">Años de Experiencia:</label><br />
+                        <input type="range" id="experience" name="experience" min="0" max="10" step="1" vaue=@ViewData["ExperienceYear"] onInput="$('#yearsExperiencePrompt').html($(this).val())" />
+                        <span id="yearsExperiencePrompt">@ViewData["ExperienceYear"]</span>
+                    </div>
+                </div>
+                
+                <div class="btn-group m-1 px-2">
+                    @*@Html.ActionLink("Buscar","SearchJob", "InterfaceObject",new { id = 100500, name = selectedwififromdd },new {@class="btn btn-dark"})*@
+                    <input type="submit" class="btn btn-dark" value="Comenzar a Buscar" style="margin:2em auto 2em" />
                 </div>
             </form>
-            <div class="nav1 navbar justify-content-center">
-                <div class="btn-group m-1 px-2">
-                    <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-geo-alt-fill"></i> Ubicación
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Zona Central</a></li>
-                        <li><a class="dropdown-item" href="#">Zona Occidental</a></li>
-                        <li><a class="dropdown-item" href="#">Zona Oriental</a></li>
-                    </ul>
-                </div>
 
-                <div class="btn-group m-1 px-2">
-                    <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Tipo de trabajo
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Zona Central</a></li>
-                        <li><a class="dropdown-item" href="#">Zona Occidental</a></li>
-                        <li><a class="dropdown-item" href="#">Zona Oriental</a></li>
-                    </ul>
-                </div>
-
-                <div class="btn-group m-1 px-2">
-                    <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Salario
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Minimo</a></li>
-                        <li><a class="dropdown-item" href="#">Por hora</a></li>
-                    </ul>
-                </div>
-
-                <div class="btn-group m-1 px-2">
-                    <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Experiencia
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Sin experiencia</a></li>
-                        <li><a class="dropdown-item" href="#">Más de un año</a></li>
-                        <li><a class="dropdown-item" href="#">Más de 5 años</a></li>
-                    </ul>
-                </div>
-            </div>
         </nav>
 
     </header>
@@ -94,7 +82,7 @@
 
     <footer>
         <div class="text-white bg-dark text-center p-2">
-            <img src="./multimedia/logo.png" alt="" width="30"><br>
+            <img src="@logoSrc" alt="" width="30"><br>
             <h5><b>EasyJob</b></h5>
             <i class="bi bi-facebook" style="color: #e2e7ed;"></i>
             <i class="bi bi-instagram" style="color: #e2e7ed;"></i>

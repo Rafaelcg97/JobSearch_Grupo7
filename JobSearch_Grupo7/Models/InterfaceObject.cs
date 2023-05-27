@@ -10,7 +10,6 @@ namespace JobSearch_Grupo7.Models
         [Key]
         public int objectId { get; set; }
         public string? objectName { get; set; }
-        public string? objectType { get; set; }  
         public string? objectContentText { get; set; } 
         public byte[]? objectContentImage { get; set; }
     }
