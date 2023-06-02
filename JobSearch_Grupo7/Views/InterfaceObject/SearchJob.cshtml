@@ -2,6 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    
 }
 <!DOCTYPE html>
 <html>
@@ -21,13 +22,13 @@
                 <h2>Mostrar resultados por</h2>
                 <h5><b>Área</b></h5>
                 <ul>
-                    <li class="list-group-item"><a href="#">Mercadeo | Ventas</a></li>
-                    <li class="list-group-item"><a href="#">Servicios financieros</a></li>
-                    <li class="list-group-item"><a href="#">Restaurantes</a></li>
-                    <li class="list-group-item"><a href="#">Publicidad | Comunicaciones</a></li>
-                    <li class="list-group-item"><a href="#">Call Center</a></li>
-                    <li class="list-group-item"><a href="#">Informática</a></li>
-                    <li class="list-group-item"><a href="#">Salud</a></li>
+                    @foreach (var item in (IEnumerable<dynamic>)(ViewData["categoriesList"])!)
+                    {
+                        string area = item;
+                        <li class="list-group-item"> @Html.ActionLink(area, "SearchJob", new { area = item }) </li>
+                        
+                    }
+                    @Html.ActionLink("Todas", "SearchJob", new { area = "todas" })
                 </ul>
             </div>
         </div>
@@ -66,6 +67,7 @@
                         </div>
                     </div>
                 </div>
+                <br />
             }
 
 

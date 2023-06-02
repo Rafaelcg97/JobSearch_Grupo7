@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace JobSearch_Grupo7.Models
 {
@@ -7,6 +8,7 @@ namespace JobSearch_Grupo7.Models
         public JobsPortalDbContext(DbContextOptions options) : base(options)
         {
         }
+        public DbSet<Area> Area { get; set; }
         public DbSet<Application> Application { get; set; }
         public DbSet<City> City { get; set; }
         public DbSet<Company> Company { get; set; }

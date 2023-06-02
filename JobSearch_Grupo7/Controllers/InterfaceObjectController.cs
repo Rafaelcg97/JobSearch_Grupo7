@@ -1,10 +1,8 @@
 ﻿using JobSearch_Grupo7.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
+using System.Runtime.Intrinsics.X86;
 
 namespace JobSearch_Grupo7.Controllers
 {
@@ -15,7 +13,8 @@ namespace JobSearch_Grupo7.Controllers
         public InterfaceObjectController(JobsPortalDbContext jobsPortalDbContext)
         {
             _jobsPortalDbContext = jobsPortalDbContext;
-        }
+        }      
+
         public IActionResult Index()
         {
             byte[] logo = (from m in _jobsPortalDbContext.InterfaceObject 
@@ -59,7 +58,7 @@ namespace JobSearch_Grupo7.Controllers
             return View();
         }
 
-        public IActionResult SearchJob(Search search)
+        public IActionResult SearchJob(Search search, string area="Todas")
         {
             ViewData["SalaryRange"] = search.salary.ToString();
             ViewData["ExperienceYear"] = search.experience;
@@ -76,7 +75,10 @@ namespace JobSearch_Grupo7.Controllers
             var jobTypesList = (from m in _jobsPortalDbContext.JobType
                                 select m.jobTypePrompt).ToList();
 
-            
+            var categoriesList = (from a in _jobsPortalDbContext.Area
+                                  select a.areaName).ToList();
+
+
             var jobResultList = (from a in _jobsPortalDbContext.Job
                                        join b in _jobsPortalDbContext.JobType on a.jobTypeId equals b.jobTypeId
                                        join c in _jobsPortalDbContext.City on a.cityId equals c.cityId
@@ -115,6 +117,7 @@ namespace JobSearch_Grupo7.Controllers
             ViewData["citiesList"] = new SelectList(citiesList, "ubication");
             ViewData["jobTypesList"] = new SelectList(jobTypesList, "type");
             ViewData["jobResultList"] = jobResultList.ToList();
+            ViewData["categoriesList"] = categoriesList;
 
             return View();
         }

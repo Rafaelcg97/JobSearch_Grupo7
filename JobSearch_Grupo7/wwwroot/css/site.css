@@ -55,3 +55,8 @@ body {
     width: 180px;
     height: 180px;
 }
+.transparent {
+    background: #e2e7ed;
+    border-color: #e2e7ed;
+    border-width:0;
+}

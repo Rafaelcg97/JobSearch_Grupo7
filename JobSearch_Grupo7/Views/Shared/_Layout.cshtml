@@ -55,13 +55,13 @@
 
                     <div class="btn-group m-1 px-2">
                         <label style="margin-right:10px">Salario:</label><br />
-                        <input type="range" id="salary" name="salary" min="0" max="3000" step="100" vaue=@ViewData["SalaryRange"] onInput="$('#salaryPrompt').html($(this).val())" />
+                        <input type="range" id="salary" name="salary" min="0" max="3000" step="100" value=@ViewData["SalaryRange"] onInput="$('#salaryPrompt').html($(this).val())" />
                         <label id="salaryPrompt">@ViewData["SalaryRange"]</label>
                     </div>
 
                     <div class="btn-group m-1 px-2">
                         <label style="margin-right:10px">Experiencia:</label><br />
-                        <input type="range" id="experience" name="experience" min="0" max="10" step="1" vaue=@ViewData["ExperienceYear"] onInput="$('#yearsExperiencePrompt').html($(this).val())" />
+                        <input type="range" id="experience" name="experience" min="0" max="10" step="1" value=@ViewData["ExperienceYear"] onInput="$('#yearsExperiencePrompt').html($(this).val())" />
                         <span id="yearsExperiencePrompt">@ViewData["ExperienceYear"]</span>
                     </div>
                 </div>
