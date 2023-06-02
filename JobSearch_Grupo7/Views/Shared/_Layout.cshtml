@@ -40,7 +40,7 @@
                 </div>
         </nav>
         <nav class="navbar justify-content-center px-5" style="background-color: #e2e7ed;">
-            <form asp-action="SearchJob" class="container-fluid">
+            <form asp-action="SearchJob" asp-controller="InterfaceObject" class="container-fluid">
                 <div class="input-group mt-2">
                     <span class="input-group-text"><i class="bi bi-search"></i></span>
                     @Html.TextBox("descriptionWords","",new {@class="form-control", id = "descriptionWords"})

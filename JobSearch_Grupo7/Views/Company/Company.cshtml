@@ -1,0 +1,123 @@
+﻿@{
+    Company company = ViewData["companyData"] as Company;
+    var base64LogoCompany = Convert.ToBase64String(company.companyPicture as byte[]);
+    var logoCompanySrc = String.Format("data:image/gif;base64,{0}", base64LogoCompany);
+}
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Empresa</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="./css/style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" integrity="sha384-xeJqLiuOvjUBq3iGOjvSQSIlwrpqjSHXpduPd6rQpuiM3f5/ijby8pCsnbu5S81n" crossorigin="anonymous">
+    </head>
+    <section class="m-4">
+        <div class="row mx-5">
+          <div class="col-md-3 p-2">
+            <img src=@logoCompanySrc alt="" class="im1">
+        </div>
+          <div class="col-md-5 p-2">
+            <h2><b><u>@company.companyName </u></b></h2>
+                <h5 class="my-3"><b>Descripcion:</b></h5>
+            <p>@company.companyDescription</p>
+        </div>
+            <div class="col-md-4  mt-4">
+                <ul>
+                    <li class="list-group-item mt-4"><h5>Información de contacto:</h5></li>
+                    <li class="list-group-item disabled m-1"><i class="bi bi-telephone-fill"></i> @company.companyPhone1</li>
+                    <li class="list-group-item disabled m-1"><i class="bi bi-envelope"></i> @company.companyEmail</li>
+                    <li class="list-group-item disabled m-1"><i class="bi bi-linkedin"></i> @company.companyLinkedIn</li>
+                </ul>
+            </div>
+        </div>
+        </section>
+        <section  class="m-4 justify-content-center">
+            <div class="container">
+            <h4><b>Candidatos</b></h4>
+            <div class="mar1 w-100">
+                <div class="table-responsive">
+              <table class="table align-middle table-borderless text-center">
+                <thead>
+                  <tr>
+                    <td></td>
+                    <td><b>Puesto a aplicar</b></td>
+                    <td><b>Curriculum</b></td>
+                    <td></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                        <td><img src="./multimedia/perfil.png" alt="" width="50" height="50" class="d-inline-block align-text-top">
+                            Nombre del postulante1</td>
+                        <td><p>Puesto 1</p></td>
+                        <td><a href=""><img src="./multimedia/cv.png" alt="" width="50" height="50" class="d-inline-block align-text-top"></a></td>
+                        <td><button type="text" class="bt1 w-75" style="background-color: #12a24a;"><b>ver perfil</b></button></td>
+                    </tr>
+                    <tr>
+                        <td><img src="./multimedia/perfil.png" alt="" width="50" height="50" class="d-inline-block align-text-top">
+                            Nombre del postulante1</td>
+                        <td><p>Puesto 1</p></td>
+                        <td><a href=""><img src="./multimedia/cv.png" alt="" width="50" height="50" class="d-inline-block align-text-top"></a></td>
+                        <td><button type="text" class="bt1 w-75" style="background-color: #12a24a;"><b>ver perfil</b></button></td>
+                    </tr>
+                </tbody>
+              </table>
+                </div>
+            </div>
+            </div>
+        </section>
+        <section class="m-4">
+            <div class="row">
+              <div class="col-3 justify-content-center text-center">
+                <h4><b>Puestos aplicados</b></h4>
+                <div class="table-responsive">
+                  <table class="table align-middle table-borderless">
+                    <tbody>
+                      <tr>
+                        <div class="p-1 ct2 m-3">
+                            <b>Plazas publicadas<br><h5>16</h5></b>
+                        </div>
+                      </tr>
+                      <tr>
+                        <div class="p-1 ct2 m-3">
+                            <b>Visitas<br><h5>68</h5></b>
+                        </div>
+                      </tr>
+                      <tr>
+                        <div class="p-1 ct2 m-3">
+                            <b>Aplicaciones<br><h5>23</h5></b>
+                        </div>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-8">
+                <h4><b>Opiniones</b></h4>
+                <div class="d-flex justify-content-end">
+                    <b>Puntuación de la empresa: 75%</b> 
+                </div>
+                <div class="d-flex justify-content-end">
+                    <b>Puntuación de la empresa: 75%</b> 
+                </div>
+                <div>
+                    <b class="text-primary">Comentarios:</b>
+                    <p><img src="./multimedia/perfil.png" alt="" width="30" height="30" class="d-inline-block align-text-top"><a class="text-primary">Usuario 1: </a>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt dicta temporibus aliquid totam blanditiis ea natus consequuntur consectetur, sunt ipsa tempore voluptatum impedit hic fugiat! Blanditiis voluptatem aspernatur recusandae quam.</p>
+                    
+
+
+                </div>
+
+              </div>
+               </div>
+    
+            </div> 
+          </section>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</html>   

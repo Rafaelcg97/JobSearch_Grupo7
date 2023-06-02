@@ -32,7 +32,20 @@ namespace JobSearch_Grupo7.Models
         [MaxLength(200), MinLength(6)]
         public string? companyLinkedIn { get; set; }
 
-
         public byte[]? companyPicture { get; set; }
+
+        public Company(int companyId, string? companyName, string? companyDescription, string? companyDirection, 
+            string? companyPhone1, string? companyPhone2, string? companyEmail, string? companyLinkedIn, byte[]? companyPicture)
+        {
+            this.companyId = companyId;
+            this.companyName = companyName;
+            this.companyDescription = companyDescription;
+            this.companyDirection = companyDirection;
+            this.companyPhone1 = companyPhone1;
+            this.companyPhone2 = companyPhone2;
+            this.companyEmail = companyEmail;
+            this.companyLinkedIn = companyLinkedIn;
+            this.companyPicture = companyPicture;
+        }
     }
 }

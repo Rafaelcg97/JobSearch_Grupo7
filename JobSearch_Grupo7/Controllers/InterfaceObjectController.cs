@@ -94,7 +94,7 @@ namespace JobSearch_Grupo7.Controllers
                                            jobPicture = d.companyPicture,
                                            jobArea = e.areaName,
                                            jobPosted = a.jobPosted,
-
+                                           jobCompanyId=d.companyId
                                        });
             
             if(!search.type.IsNullOrEmpty())
