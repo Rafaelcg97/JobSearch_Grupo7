@@ -1,4 +1,5 @@
-﻿@*
+﻿@using System.Reflection.Metadata;
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -11,7 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Busqueda</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" integrity="sha384-xeJqLiuOvjUBq3iGOjvSQSIlwrpqjSHXpduPd6rQpuiM3f5/ijby8pCsnbu5S81n" crossorigin="anonymous">
 </head>
@@ -25,27 +25,35 @@
                     @foreach (var item in (IEnumerable<dynamic>)(ViewData["categoriesList"])!)
                     {
                         string area = item;
-                        <li class="list-group-item"> @Html.ActionLink(area, "SearchJob", new { area = item }) </li>
-                        
-                    }
-                    @Html.ActionLink("Todas", "SearchJob", new { area = "todas" })
+                        <li class="list-group-item"> @Html.ActionLink(area, "SearchJob", new { area = item, type=ViewData["Type"], descriptionWords=ViewData["Words"], ubication=  ViewData["Ubication"], salary=@ViewData["SalaryRange"], experience=@ViewData["ExperienceYear"]}) </li>
+                            }
+                    @Html.ActionLink("Todas", "SearchJob", new {area = "Todas", type=ViewData["Type"], descriptionWords=ViewData["Words"], ubication=  ViewData["Ubication"], salary=@ViewData["SalaryRange"], experience=@ViewData["ExperienceYear"] })
                 </ul>
             </div>
         </div>
 
         <div class="col-md-7">
+            <br />
+            <form class="container-fluid">
+                <div class="input-group mt-2">
+                    <span class="input-group-text">Ordenar por</span>
+                    @Html.Hidden("area",ViewData["area"])
+                    @Html.Hidden("type",ViewData["Type"])
+                    @Html.Hidden("descriptionWords",ViewData["Words"])
+                    @Html.Hidden("ubication",ViewData["Ubication"])
+                    @Html.Hidden("salary",ViewData["SalaryRange"])
+                    @Html.Hidden("experience",ViewData["ExperienceYear"])
+                    @Html.DropDownList("ordenDef", ViewData["Orden"] as SelectList, new {@onchange="submitform();"})
+                </div>
+            </form>
+            <br />
+            <script>
+                function submitform() {
+                    $('form').submit();
+                }
+            </script>
 
-            <div class="btn-group m-2 px-2">
-                <b class="m-1">Ordenar por</b>
-                <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Ordenar por
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Más relevante</a></li>
-                    <li><a class="dropdown-item" href="#">Más reciente</a></li>
-                    <li><a class="dropdown-item" href="#">Más antiguo</a></li>
-                </ul>
-            </div>
+
             @foreach (var item in (IEnumerable<dynamic>)(ViewData["jobResultList"])!)
             {
                 var base64Image = Convert.ToBase64String((item.jobPicture as byte[])!);

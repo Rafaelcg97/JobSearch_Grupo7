@@ -43,14 +43,14 @@
             <form asp-action="SearchJob" class="container-fluid">
                 <div class="input-group mt-2">
                     <span class="input-group-text"><i class="bi bi-search"></i></span>
-                    @Html.TextBox("descriptionWords","",new {@class="form-control"})
+                    @Html.TextBox("descriptionWords","",new {@class="form-control", id = "descriptionWords"})
                 </div>
                 <div class="nav1 navbar justify-content-center">
                     <div class="btn-group m-1 px-2">
-                        @Html.DropDownList("ubication", ViewData["citiesList"] as SelectList,"Todas las ubicaciones", new {@class="form-select"})
+                        @Html.DropDownList("ubication", ViewData["citiesList"] as SelectList,"Todas las ubicaciones", new {@class="form-select", id = "ubication"})
                     </div>
                     <div class="btn-group m-1 px-2">
-                        @Html.DropDownList("type", ViewData["jobTypesList"] as SelectList,"Todos los tipos", new {@class="form-select"})
+                        @Html.DropDownList("type", ViewData["jobTypesList"] as SelectList,"Todos los tipos", new {@class="form-select", id = "type"})
                     </div>
 
                     <div class="btn-group m-1 px-2">

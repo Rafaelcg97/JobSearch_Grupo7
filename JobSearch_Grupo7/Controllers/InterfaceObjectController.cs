@@ -58,12 +58,8 @@ namespace JobSearch_Grupo7.Controllers
             return View();
         }
 
-        public IActionResult SearchJob(Search search, string area="Todas")
+        public IActionResult SearchJob(Search search, string area="Todas", string ordenDef="Default")
         {
-            ViewData["SalaryRange"] = search.salary.ToString();
-            ViewData["ExperienceYear"] = search.experience;
-
-
             byte[] logo = (from m in _jobsPortalDbContext.InterfaceObject
                            where m.objectName == "logo"
                            select m.objectContentImage).First();
@@ -83,6 +79,7 @@ namespace JobSearch_Grupo7.Controllers
                                        join b in _jobsPortalDbContext.JobType on a.jobTypeId equals b.jobTypeId
                                        join c in _jobsPortalDbContext.City on a.cityId equals c.cityId
                                        join d in _jobsPortalDbContext.Company on a.companyId equals d.companyId
+                                       join e in _jobsPortalDbContext.Area on a.areaId equals e.areaId
                                  where a.jobSalary <= search.salary && a.jobExperienceYear <= search.experience
                                        select new
                                        {
@@ -94,7 +91,9 @@ namespace JobSearch_Grupo7.Controllers
                                            jobType = b.jobTypePrompt,
                                            jobCity =c.cityName,
                                            JobCompany = d.companyName,
-                                           jobPicture = d.companyPicture
+                                           jobPicture = d.companyPicture,
+                                           jobArea = e.areaName,
+                                           jobPosted = a.jobPosted,
 
                                        });
             
@@ -111,13 +110,45 @@ namespace JobSearch_Grupo7.Controllers
             {
                 jobResultList = jobResultList.Where(p => p.jobName.Contains(search.descriptionWords!) || p.jobDescription.Contains(search.descriptionWords));
             }
+            if(area != "Todas")
+            {
+                jobResultList = jobResultList.Where(p => p.jobArea == area);
+            }
 
+            //definir orden de los trabajos
+            switch (ordenDef)
+            {
+                case "Mayor Salario":
+                    jobResultList = jobResultList.OrderByDescending(m => m.jobSalary);
+                    break;
+                case "Menor Salario":
+                    jobResultList = jobResultList.OrderBy(m => m.jobSalary);
+                    break;
+                case "Mas Nuevo":
+                    jobResultList = jobResultList.OrderByDescending(m => m.jobPosted);
+                    break;
+                case "Mas Antiguo":
+                    jobResultList = jobResultList.OrderBy(m => m.jobPosted);
+                    break;
+                default:
+                    break;
+            }
+
+
+            List<string> listOrden = new List<string> {"Default", "Mas Antiguo", "Mas Nuevo", "Mayor Salario", "Menor Salario" };
 
             ViewData["logoImage"] = logo;
             ViewData["citiesList"] = new SelectList(citiesList, "ubication");
             ViewData["jobTypesList"] = new SelectList(jobTypesList, "type");
             ViewData["jobResultList"] = jobResultList.ToList();
             ViewData["categoriesList"] = categoriesList;
+            ViewData["SalaryRange"] = search.salary.ToString();
+            ViewData["ExperienceYear"] = search.experience;
+            ViewData["Ubication"] = search.ubication;
+            ViewData["Type"] = search.type;
+            ViewData["Words"] = search.descriptionWords;
+            ViewData["orden"] = new SelectList(listOrden, "orden");
+            ViewData["area"] = area;
 
             return View();
         }
