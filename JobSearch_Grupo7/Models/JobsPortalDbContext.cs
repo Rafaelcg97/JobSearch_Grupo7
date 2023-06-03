@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
+using JobSearch_Grupo7.Models;
 
 namespace JobSearch_Grupo7.Models
 {
@@ -18,7 +19,6 @@ namespace JobSearch_Grupo7.Models
         public DbSet<Job> Job { get; set; }
         public DbSet<JobComment> JobComment {get;set;}
         public DbSet<JobType> JobType { get; set; }
-
-
+        public DbSet<JobSearch_Grupo7.Models.sources_pages>? sources_pages { get; set; }
     }
 }
