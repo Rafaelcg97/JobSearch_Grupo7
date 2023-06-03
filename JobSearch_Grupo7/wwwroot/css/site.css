@@ -60,3 +60,11 @@ body {
     border-color: #e2e7ed;
     border-width:0;
 }
+table, tr, th, td {
+    border: 1px solid #dddddd;
+
+}
+
+.tbl-header {
+    width: calc(100% - 17px);
+}

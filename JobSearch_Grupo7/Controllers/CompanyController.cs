@@ -13,7 +13,6 @@ namespace JobSearch_Grupo7.Controllers
             _jobsPortalDbContext = jobsPortalDbContext;
         }
 
-        //[Route("/company/company")]
         public IActionResult Company(int companyId=0)
         {
             byte[] logo = (from m in _jobsPortalDbContext.InterfaceObject
@@ -24,7 +23,7 @@ namespace JobSearch_Grupo7.Controllers
 
             var jobTypesList = (from m in _jobsPortalDbContext.JobType select m.jobTypePrompt).ToList();
 
-            var jobResultList = (from a in _jobsPortalDbContext.Company
+            var companyDataResult = (from a in _jobsPortalDbContext.Company
                                  where a.companyId == companyId
                                  select new
                                  {
@@ -39,12 +38,55 @@ namespace JobSearch_Grupo7.Controllers
                                      companyPicture = a.companyPicture
                                  }).ToList();
 
-            Company companyData = new Company(jobResultList[0].companyId, jobResultList[0].companyName, jobResultList[0].companyDescription, jobResultList[0].compnayDirection, jobResultList[0].companyPhone1, jobResultList[0].companyPhone2, jobResultList[0].companyEmail, jobResultList[0].companyLinkedIn, jobResultList[0].companyPicture);
+            Company companyData = new Company(companyDataResult[0].companyId, companyDataResult[0].companyName, companyDataResult[0].companyDescription, companyDataResult[0].compnayDirection, companyDataResult[0].companyPhone1, companyDataResult[0].companyPhone2, companyDataResult[0].companyEmail, companyDataResult[0].companyLinkedIn, companyDataResult[0].companyPicture);
+
+            var jobResultList = (from a in _jobsPortalDbContext.Job
+                                 join c in _jobsPortalDbContext.City on a.cityId equals c.cityId
+                                 join e in _jobsPortalDbContext.Area on a.areaId equals e.areaId
+                                 where a.companyId == companyId
+                                 select new
+                                 {
+                                     jobName = a.jobName,
+                                     jobCity = c.cityName,
+                                     jobSalary = a.jobSalary,
+                                     jobId = a.jobId
+                                 });
+
+            int countJobsPerCompany = (from m in _jobsPortalDbContext.Job where m.companyId == companyId select m).Count();
+
+            int countApplicationsPerCompany = (from a in _jobsPortalDbContext.Application
+                                               join b in _jobsPortalDbContext.Job on a.jobId equals b.jobId
+                                               join c in _jobsPortalDbContext.Company on b.companyId equals c.companyId
+                                               where c.companyId == companyId select a.applicationId).Count();
+
+            var companyOpinionResult = (from a in _jobsPortalDbContext.companyOpinion
+                                 join c in _jobsPortalDbContext.Employee on a.employeeId equals c.employeeId
+                                 where a.companyId == companyId
+                                 select new
+                                 {
+                                     CompanyOpinion = a.companyOpinion,
+                                     EmployeeName =c.employeeName,
+                                     EmployeePicture =c.employeePicture,
+                                     AnomComment =a.companyOpinionAnom,
+                                 });
+
             ViewData["logoImage"] = logo;
             ViewData["citiesList"] = new SelectList(citiesList, "ubicacion");
             ViewData["jobTypesList"] = new SelectList(jobTypesList, "type");
             ViewData["companyData"] = companyData;
+            ViewData["jobPerCompany"] = jobResultList.ToList();
+            ViewData["countJobsPerCompany"] = countJobsPerCompany;
+            ViewData["countApplicationsPerCompany"] = countApplicationsPerCompany;
+            ViewData["companyOpinionResult"] = companyOpinionResult.ToList();
             return View();
+        }
+
+        public IActionResult SendComment(CompanyOpinion companyOpinionGet)
+        {
+            _jobsPortalDbContext.Add(companyOpinionGet);
+            _jobsPortalDbContext.SaveChanges();
+            return RedirectToAction("Company");
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@{
+﻿@using System.Globalization;
+@{
     Company company = ViewData["companyData"] as Company;
     var base64LogoCompany = Convert.ToBase64String(company.companyPicture as byte[]);
     var logoCompanySrc = String.Format("data:image/gif;base64,{0}", base64LogoCompany);
@@ -28,42 +29,54 @@
                     <li class="list-group-item mt-4"><h5>Información de contacto:</h5></li>
                     <li class="list-group-item disabled m-1"><i class="bi bi-telephone-fill"></i> @company.companyPhone1</li>
                     <li class="list-group-item disabled m-1"><i class="bi bi-envelope"></i> @company.companyEmail</li>
-                    <li class="list-group-item disabled m-1"><i class="bi bi-linkedin"></i> @company.companyLinkedIn</li>
+                <li class="list-group-item  m-1"><i class="bi bi-linkedin"></i> <a href=@company.companyLinkedIn target="_blank">LinkedIn</a></li>
+                <br />
+                @if (1 == 1)
+                {
+                    <button type="submit" class="bt1 w-75" style="background-color: #12a24a;"><b>Publicar Plaza</b></button>
+                }
                 </ul>
             </div>
         </div>
         </section>
         <section  class="m-4 justify-content-center">
             <div class="container">
-            <h4><b>Candidatos</b></h4>
+            <h4><b>Puestos Publicados</b></h4>
             <div class="mar1 w-100">
                 <div class="table-responsive">
-              <table class="table align-middle table-borderless text-center">
-                <thead>
-                  <tr>
-                    <td></td>
-                    <td><b>Puesto a aplicar</b></td>
-                    <td><b>Curriculum</b></td>
-                    <td></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                        <td><img src="./multimedia/perfil.png" alt="" width="50" height="50" class="d-inline-block align-text-top">
-                            Nombre del postulante1</td>
-                        <td><p>Puesto 1</p></td>
-                        <td><a href=""><img src="./multimedia/cv.png" alt="" width="50" height="50" class="d-inline-block align-text-top"></a></td>
-                        <td><button type="text" class="bt1 w-75" style="background-color: #12a24a;"><b>ver perfil</b></button></td>
-                    </tr>
-                    <tr>
-                        <td><img src="./multimedia/perfil.png" alt="" width="50" height="50" class="d-inline-block align-text-top">
-                            Nombre del postulante1</td>
-                        <td><p>Puesto 1</p></td>
-                        <td><a href=""><img src="./multimedia/cv.png" alt="" width="50" height="50" class="d-inline-block align-text-top"></a></td>
-                        <td><button type="text" class="bt1 w-75" style="background-color: #12a24a;"><b>ver perfil</b></button></td>
-                    </tr>
-                </tbody>
-              </table>
+                <div class="tbl-header">
+                    <table style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th width="25%">Puesto Publicado</th>
+                                <th width="25%">Ubicacion</th>
+                                <th width="25%">Salario</th>
+                                <th width="25%">Detalles</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div style="width:100%;overflow:auto; max-height:200px;">
+                    <table style="width:100%;" class="table table-striped table-bordered table-sm">
+                        @foreach (var item in (IEnumerable<dynamic>)(ViewData["jobPerCompany"])!)
+                        {
+                            string name = item.jobName;
+                            string ubicacion = item.jobCity;
+                            string salary = item.jobSalary.ToString("C", CultureInfo.CurrentCulture);
+
+                            int id = item.jobId;
+                            <tr>
+                                <form asp-action="Job" asp-controller="Job">
+                                <td width="25%">@Html.Label("jobName", name)</td>
+                                <td width="25%">@Html.Label("jobUbication", ubicacion)</td>
+                                <td width="25%">@Html.Label("jobSalary", salary)</td>
+                                    @Html.Hidden("jobId",id)
+                                    <td><button type="submit" class="bt1 w-75" style="background-color: #12a24a;"><b>Detalles</b></button></td>
+                                </form>
+                            </tr>
+                        }
+                    </table>
+                </div>
                 </div>
             </div>
             </div>
@@ -71,23 +84,18 @@
         <section class="m-4">
             <div class="row">
               <div class="col-3 justify-content-center text-center">
-                <h4><b>Puestos aplicados</b></h4>
+                <h4><b>Estadisticas</b></h4>
                 <div class="table-responsive">
                   <table class="table align-middle table-borderless">
                     <tbody>
                       <tr>
                         <div class="p-1 ct2 m-3">
-                            <b>Plazas publicadas<br><h5>16</h5></b>
+                            <b>Plazas publicadas<br><h5>@ViewData["countJobsPerCompany"]</h5></b>
                         </div>
                       </tr>
                       <tr>
                         <div class="p-1 ct2 m-3">
-                            <b>Visitas<br><h5>68</h5></b>
-                        </div>
-                      </tr>
-                      <tr>
-                        <div class="p-1 ct2 m-3">
-                            <b>Aplicaciones<br><h5>23</h5></b>
+                                <b>Aplicaciones<br><h5>@ViewData["countApplicationsPerCompany"] </h5></b>
                         </div>
                       </tr>
                     </tbody>
@@ -97,19 +105,51 @@
               <div class="col-8">
                 <h4><b>Opiniones</b></h4>
                 <div class="d-flex justify-content-end">
-                    <b>Puntuación de la empresa: 75%</b> 
-                </div>
-                <div class="d-flex justify-content-end">
-                    <b>Puntuación de la empresa: 75%</b> 
+                    <b>Total de comentarios: </b> 
                 </div>
                 <div>
                     <b class="text-primary">Comentarios:</b>
-                    <p><img src="./multimedia/perfil.png" alt="" width="30" height="30" class="d-inline-block align-text-top"><a class="text-primary">Usuario 1: </a>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt dicta temporibus aliquid totam blanditiis ea natus consequuntur consectetur, sunt ipsa tempore voluptatum impedit hic fugiat! Blanditiis voluptatem aspernatur recusandae quam.</p>
+                @foreach (var item in (IEnumerable<dynamic>)(ViewData["companyOpinionResult"])!)
+                {
+                    if (item.AnomComment == true)
+                    {
+                        <p>
+                            <img src="https://cdn-icons-png.flaticon.com/512/892/892749.png" alt="" width="30" height="30" class="d-inline-block align-text-top">
+                            <a class="text-primary">Anonimo </a>
+                            @item.CompanyOpinion
+                        </p>
+                    }
+                    else
+                    {
+                        var base64Img = Convert.ToBase64String((item.EmployeePicture as byte[])!);
+                        var pictureSrc = String.Format("data:image/gif;base64,{0}", base64Img);
+                        <p>
+                            <img src=@pictureSrc alt="" width="30" height="30" class="d-inline-block align-text-top">
+                            <a class="text-primary">@item.EmployeeName </a>
+                            @item.CompanyOpinion
+                        </p>
+                    }
+
+                }
+
                     
-
-
                 </div>
+            <div class="form-floating col-9">
+                <form asp-controller="Company" asp-action="SendComment">
+                    @Html.TextArea("comentario","", new { @class="form-control", @placeholder="Deja tu opinion sobre esta empresa aqui", @id="floatingTextarea2", @style="height: 100px; width:100%"})
+
+                    @Html.Hidden("companyOpinionTimeStamp", DateTime.Now)
+                    @Html.Hidden("employeeId", 1)
+                    @Html.Hidden("companyId", company.companyId)
+                    <div class="form-floating col-4">
+                        @Html.CheckBox("companyOpinionAnom",true)
+                        <span>Comentario Anonimo</span>
+                        <button type="submit" class="bt1 w-100" style="background-color: #12a24a;"><b>Enviar</b></button>
+                     </div>
+
+                </form>
+
+            </div>
 
               </div>
                </div>

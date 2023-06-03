@@ -108,7 +108,7 @@ namespace JobSearch_Grupo7.Controllers
             }
             if (!search.descriptionWords.IsNullOrEmpty())
             {
-                jobResultList = jobResultList.Where(p => p.jobName.Contains(search.descriptionWords!) || p.jobDescription.Contains(search.descriptionWords));
+                jobResultList = jobResultList.Where(p => p.jobName.Contains(search.descriptionWords!) || p.jobDescription.Contains(search.descriptionWords!));
             }
             if(area != "Todas")
             {
