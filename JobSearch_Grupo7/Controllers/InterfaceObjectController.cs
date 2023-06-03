@@ -83,6 +83,7 @@ namespace JobSearch_Grupo7.Controllers
                                  where a.jobSalary <= search.salary && a.jobExperienceYear <= search.experience
                                        select new
                                        {
+                                           jobId = a.jobId,
                                            jobName =a.jobName,
                                            jobDescription=a.jobDescription,
                                            jobSalary = a.jobSalary,

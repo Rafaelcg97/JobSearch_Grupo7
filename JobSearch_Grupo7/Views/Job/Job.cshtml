@@ -117,7 +117,7 @@
             </div>
             <div class="form-floating col-9">
                 <form asp-controller="Job" asp-action="SendComment">
-                    @Html.TextArea("companyOpinion","", new { @class="form-control", @placeholder="Deja tu opinion sobre este puesto", @id="floatingTextarea2", @style="height: 100px; width:100%"})
+                    @Html.TextArea("jobComment","", new { @class="form-control", @placeholder="Deja tu opinion sobre este puesto", @id="floatingTextarea2", @style="height: 100px; width:100%"})
 
                     @Html.Hidden("jobCommentTimeStamp", DateTime.Now)
                     @Html.Hidden("employeeId", 1)

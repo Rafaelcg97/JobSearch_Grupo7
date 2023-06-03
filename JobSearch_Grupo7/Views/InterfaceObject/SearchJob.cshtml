@@ -70,7 +70,14 @@
                             <h5> @item.JobCompany </h5>
                             <h5><i class="bi bi-geo-alt-fill"></i> @item.jobCity</h5>
                             <div class="text-end">
-                                <button type="button" class="bt text-bg-primary w-25">Ver oferta</button>
+                                @{
+                                    int jobId = item.jobId;
+                                }
+                                <form asp-action="Job" asp-controller="Job">
+                                    @Html.Hidden("jobId", jobId)
+                                    <button type="submit" class="bt text-bg-primary w-25">Ver oferta</button>
+                                </form>
+
                             </div>
                         </div>
                     </div>
