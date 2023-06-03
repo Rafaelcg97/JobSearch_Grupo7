@@ -1,4 +1,5 @@
 ﻿@{
+    var inocrrecto = ViewData["UsuarioErroneo"];
 }
 <br />
 <br />
@@ -33,6 +34,11 @@
                         <button type="submit" class="bt text-bg-primary w-50"><b>Iniciar sesión</b></button>
                         <br />
                         <br />
+                        @if (inocrrecto is not null)
+                        {
+                            <span style="color:red;">Ups! credenciales Invalidas </span>
+                        }
+
                         <p class="text-muted">¿Eres nuevo? <a href="#"> Registrate</a></p>
                     </div>
 

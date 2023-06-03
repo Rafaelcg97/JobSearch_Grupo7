@@ -2,6 +2,7 @@
 using JobSearch_Grupo7.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Reflection;
 
 namespace JobSearch_Grupo7.Controllers
 {
@@ -64,15 +65,40 @@ namespace JobSearch_Grupo7.Controllers
                 ViewData["SalaryRange"] = 1500;
                 ViewData["ExperienceYear"] = 5;
                 ViewData["UserName"] = HttpContext.Session.GetString("userName");
+
+                return View("~/Views/InterfaceObject/Index.cshtml");
             }
+            else
+            {
+                byte[] logo = (from m in _jobsPortalDbContext.InterfaceObject
+                               where m.objectName == "logo"
+                               select m.objectContentImage).First();
 
+                var bannerInicial = (from m in _jobsPortalDbContext.InterfaceObject
+                                     where m.objectName == "banner"
+                                     select new { m.objectContentImage, m.objectContentText }).First();
 
+                List<byte[]> companyPictures = (from m in _jobsPortalDbContext.Company
+                                                select m.companyPicture).Take(10).ToList();
 
+                var citiesList = (from m in _jobsPortalDbContext.City
+                                  select m.cityName).ToList();
 
+                var jobTypesList = (from m in _jobsPortalDbContext.JobType select m.jobTypePrompt).ToList();
 
+                byte[] banner = bannerInicial.objectContentImage;
+                string bannerText = bannerInicial.objectContentText;
 
+                ViewData["logoImage"] = logo;
+                ViewData["bannerImage"] = banner;
+                ViewData["citiesList"] = new SelectList(citiesList, "ubicacion");
+                ViewData["jobTypesList"] = new SelectList(jobTypesList, "type");
+                ViewData["SalaryRange"] = 1500;
+                ViewData["ExperienceYear"] = 5;
+                ViewData["UsuarioErroneo"] = "Credenciales Invalidas";
 
-            return View("~/Views/InterfaceObject/Index.cshtml");
+                return View("~/Views/InterfaceObject/SignIn.cshtml");
+            }
         }
 
         public IActionResult LogOut()
