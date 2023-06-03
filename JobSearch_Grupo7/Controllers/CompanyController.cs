@@ -86,7 +86,7 @@ namespace JobSearch_Grupo7.Controllers
         {
             _jobsPortalDbContext.Add(companyOpinionGet);
             _jobsPortalDbContext.SaveChanges();
-            return RedirectToAction("Company", new { companyId = 1 });
+            return RedirectToAction("Company", new { companyId = companyOpinionGet.companyId });
 
         }
     }

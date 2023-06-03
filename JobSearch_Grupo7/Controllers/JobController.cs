@@ -14,7 +14,8 @@ namespace JobSearch_Grupo7.Controllers
 
         public IActionResult Job()
         {
-            return View("~/Views/InterfaceObject/Job.cshtml");
+           // return View("~/Views/InterfaceObject/Job.cshtml");
+           return View();
         }
     }
 }
