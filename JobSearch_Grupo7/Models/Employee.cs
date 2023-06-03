@@ -4,6 +4,16 @@ namespace JobSearch_Grupo7.Models
 {
     public class Employee
     {
+        public Employee(int employeeId, string? employeeName, string? employeeDescription, string? employeeEmail, string? employeePhone, string? employeeLinkedIn)
+        {
+            this.employeeId = employeeId;
+            this.employeeName = employeeName;
+            this.employeeDescription = employeeDescription;
+            this.employeeEmail = employeeEmail;
+            this.employeePhone = employeePhone;
+            this.employeeLinkedIn = employeeLinkedIn;
+        }
+
         [Key]
         public int employeeId { get; set; }
         public string? employeeName { get; set; }

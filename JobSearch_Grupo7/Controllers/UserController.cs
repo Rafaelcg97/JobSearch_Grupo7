@@ -145,5 +145,13 @@ namespace JobSearch_Grupo7.Controllers
 
             return View("~/Views/InterfaceObject/Index.cshtml");
         }
+
+        public IActionResult signUp(string name, string description, string email, string phone, string password) 
+        {
+
+
+
+            return View("~/Views/InterfaceObject/Index.cshtml");
+        }
     }
 }
