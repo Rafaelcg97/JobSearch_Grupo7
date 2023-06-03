@@ -81,6 +81,7 @@ namespace JobSearch_Grupo7.Controllers
             ViewData["TotalCommentsCount"] = companyOpinionResult.Count();
             ViewData["SalaryRange"] = 1500;
             ViewData["ExperienceYear"] = 5;
+            ViewData["UserName"] = HttpContext.Session.GetString("userName");
             return View();
         }
 

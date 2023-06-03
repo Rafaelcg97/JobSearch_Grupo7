@@ -53,6 +53,7 @@ namespace JobSearch_Grupo7.Controllers
             ViewData["jobTypesList"] = new SelectList(jobTypesList, "type");
             ViewData["SalaryRange"] = 1500;
             ViewData["ExperienceYear"] = 5;
+            ViewData["UserName"] = HttpContext.Session.GetString("userName");
 
 
             return View();
@@ -150,6 +151,7 @@ namespace JobSearch_Grupo7.Controllers
             ViewData["Words"] = search.descriptionWords;
             ViewData["orden"] = new SelectList(listOrden, "orden");
             ViewData["area"] = area;
+            ViewData["UserName"] = HttpContext.Session.GetString("userName");
 
             return View();
         }

@@ -12,5 +12,6 @@ namespace JobSearch_Grupo7.Models
         public string? employeePhone { get; set; }
         public string? employeeLinkedIn { get; set; }
         public byte[]? employeePicture { get; set; }
+        public int userId { get; set; }
     }
 }

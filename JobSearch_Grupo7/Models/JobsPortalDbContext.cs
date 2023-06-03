@@ -18,6 +18,7 @@ namespace JobSearch_Grupo7.Models
         public DbSet<Job> Job { get; set; }
         public DbSet<JobComment> JobComment {get;set;}
         public DbSet<JobType> JobType { get; set; }
+        public DbSet<User> User { get; set; }
 
 
     }

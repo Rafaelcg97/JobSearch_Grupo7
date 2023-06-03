@@ -34,7 +34,7 @@
 
         <div class="col-md-7">
             <br />
-            <form class="container-fluid">
+            <form asp-action="SearchJob" id="target" asp-controller="InterfaceObject" class="container-fluid">
                 <div class="input-group mt-2">
                     <span class="input-group-text">Ordenar por</span>
                     @Html.Hidden("area",ViewData["area"])
@@ -49,7 +49,8 @@
             <br />
             <script>
                 function submitform() {
-                    $('form').submit();
+                    document.getElementById("target").submit();
+                    //$('form').submit();
                 }
             </script>
 
@@ -73,7 +74,7 @@
                                 @{
                                     int jobId = item.jobId;
                                 }
-                                <form asp-action="Job" asp-controller="Job">
+                                <form asp-action="Job" asp-controller="Job" id="form2" name="form2">
                                     @Html.Hidden("jobId", jobId)
                                     <button type="submit" class="bt text-bg-primary w-25">Ver oferta</button>
                                 </form>

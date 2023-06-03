@@ -90,6 +90,7 @@ namespace JobSearch_Grupo7.Controllers
             ViewData["jobTypesList"] = new SelectList(jobTypesList, "type");
             ViewData["SalaryRange"] = 1500;
             ViewData["ExperienceYear"] = 5;
+            ViewData["UserName"] = HttpContext.Session.GetString("userName");
             ViewData["companyData"] = companyData;
             ViewData["jobData"] = jobData;
             ViewData["jobComments"] = jobComments;
