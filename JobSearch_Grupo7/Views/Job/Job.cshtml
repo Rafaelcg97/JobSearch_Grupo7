@@ -2,6 +2,35 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    Company? company = ViewData["companyData"] as Company;
+    var base64LogoCompany = Convert.ToBase64String((company!.companyPicture as byte[])!);
+    var logoCompanySrc = String.Format("data:image/gif;base64,{0}", base64LogoCompany);
+
+    string jobName = "";
+    string jobDescription = "";
+    string jobRequirements = "";
+    int jobExperience = 0;
+    double jobSalary = 0;
+    string jobUbication = "";
+    string jobArea = "";
+    DateTime jobPosted = DateTime.Now;
+    DateTime jobExpiration = DateTime.Now;
+    int jobId = 0;
+
+    @foreach (var item in (IEnumerable<dynamic>)(ViewData["jobData"])!)
+    {
+        jobName = item.jobName;
+        jobDescription = item.jobDescription;
+        jobRequirements = item.jobRequirement;
+        jobExperience = item.jobExperienceYear;
+        jobSalary = item.jobSalary;
+        jobUbication = item.jobCity;
+        jobArea = item.jobArea;
+        jobPosted = item.jobPosted;
+        jobExpiration = item.jobExpiration;
+        jobId = item.jobId;
+    }
+    //var job = 
 }
 <html lang="en">
 <head>
@@ -9,23 +38,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Plaza</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" integrity="sha384-xeJqLiuOvjUBq3iGOjvSQSIlwrpqjSHXpduPd6rQpuiM3f5/ijby8pCsnbu5S81n" crossorigin="anonymous">
 </head>
 <body>
     <section class="m-4">
         <div class="m-2">
-            <h1><b>Nombre de la plaza a aplicar</b></h1>
+            <h1><b>@jobName</b></h1>
         </div>
         <div class="row mx-5">
-            <div class="col-md-3 p-2">
-                <img src="./multimedia/em4.jpg" alt="" class="im1">
+            <div class="col-md-4 p-2">
+                <img src=@logoCompanySrc alt="" class="im1">
                 <ul>
-                    <li class="list-group-item mt-4"><h5>Información de la empresa</h5></li>
-                    <li class="list-group-item disabled m-1"><i class="bi bi-telephone-fill"></i> 0000-0000</li>
-                    <li class="list-group-item disabled m-1"><i class="bi bi-envelope"></i> nombre@example.com</li>
-                    <li class="list-group-item disabled m-1"><i class="bi bi-linkedin"></i> nombre cuenta</li>
+                    <li class="list-group-item mt-4"><h5>Información de contacto:</h5></li>
+                    <li class="list-group-item disabled m-1"><i class="bi bi-telephone-fill"></i> @company.companyPhone1</li>
+                    <li class="list-group-item disabled m-1"><i class="bi bi-envelope"></i> @company.companyEmail</li>
+                    <li class="list-group-item  m-1"><i class="bi bi-linkedin"></i> <a href=@company.companyLinkedIn target="_blank">LinkedIn</a></li>
                 </ul>
             </div>
             <div class="col-md-1">
@@ -33,51 +61,98 @@
             <div class="col-md-7 mt-4">
                 <h5>
                     <b>
-                        Puesto de trabajo
-                        <br>Nombre de la empresa
-                        <br><i class="bi bi-geo-alt"></i> Ubicación
+                        <br>@company.companyName
+                        <br><i class="bi bi-geo-alt"></i> @jobUbication
                     </b>
                 </h5>
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="bt1 w-25" style="background-color: #01559e;"><b>Aplicar</b></button>
                 </div>
                 <h5 class="my-3"><b>Descripcion del puesto:</b></h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam exercitationem tenetur repellendus non incidunt nesciunt dolorum numquam, nihil molestias distinctio itaque, iure perspiciatis. Sed consequatur placeat beatae perferendis quod nisi!</p>
+                <p>@jobDescription</p>
                 <h5 class="my-3"><b>Requisitos:</b></h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam exercitationem tenetur repellendus non incidunt nesciunt dolorum numquam, nihil molestias distinctio itaque, iure perspiciatis. Sed consequatur placeat beatae perferendis quod nisi!</p>
+                <p>@jobRequirements</p>
 
                 <b class="my-3">Detalles: </b>
-                <p><i class="bi bi-calendar-week"></i> <b>Años de experiencia: </b>5 años</p>
-                <p><i class="bi bi-cash-coin"></i><b> Salario: $</b> 500</p>
+                <br />
+                <br />
+                <p><i class="bi bi-calendar-week"></i> <b>Años de experiencia: </b>@jobExperience</p>
+                <p><i class="bi bi-cash-coin"></i><b> Salario: $</b> @jobSalary</p>
+                <p><i class="bi bi-calendar-week"></i><b> Fecha de publicacion:</b> @jobPosted.ToShortDateString() </p>
+                <p><i class="bi bi-calendar-week"></i><b> Ultima fecha de aplicacion: </b> @jobExpiration.ToShortDateString() </p>
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="bt1 w-25" style="background-color: #01559e;"><b>Aplicar</b></button>
                 </div>
             </div>
         </div>
-        <div class="mar1 m-4 w-75 position-relative bottom-0 start-50 translate-middle-x">
-            <h4><b>Coemntarios</b></h4>
+
+        <div class="col-8">
+            <h4><b>Opiniones</b></h4>
             <div>
                 <b class="text-primary">Comentarios:</b>
-                <p>
-                    <img src="./multimedia/perfil.png" alt="" width="30" height="30" class="d-inline-block align-text-top"><a class="text-primary">Usuario 1: </a>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt dicta temporibus aliquid totam blanditiis ea natus consequuntur consectetur, sunt ipsa tempore voluptatum impedit hic fugiat! Blanditiis voluptatem aspernatur recusandae quam.
-                </p>
+                @foreach (var item in (IEnumerable<dynamic>)(ViewData["jobComments"])!)
+                {
+                    if (item.AnomComment == true)
+                    {
+                        <p>
+                            <img src="https://cdn-icons-png.flaticon.com/512/892/892749.png" alt="" width="30" height="30" class="d-inline-block align-text-top">
+                            <a class="text-primary">Anonimo </a>
+                            @item.JobComment
+                        </p>
+                    }
+                    else
+                    {
+                        var base64Img = Convert.ToBase64String((item.EmployeePicture as byte[])!);
+                        var pictureSrc = String.Format("data:image/gif;base64,{0}", base64Img);
+                        <p>
+                            <img src=@pictureSrc alt="" width="30" height="30" class="d-inline-block align-text-top">
+                            <a class="text-primary">@item.EmployeeName </a>
+                            @item.JobComment
+                        </p>
+                    }
+
+                }
+
+
             </div>
-            <div class="row">
-                <div class="col-auto">
-                    <p><img src="./multimedia/perfil.png" alt="" width="30" height="30" class="d-inline-block align-text-top">
-                </div>
-                <div class="form-floating col-9">
-                    <div class="form-floating ">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                        <label for="floatingTextarea2">Añade un comentario</label>
+            <div class="form-floating col-9">
+                <form asp-controller="Job" asp-action="SendComment">
+                    @Html.TextArea("companyOpinion","", new { @class="form-control", @placeholder="Deja tu opinion sobre este puesto", @id="floatingTextarea2", @style="height: 100px; width:100%"})
+
+                    @Html.Hidden("jobCommentTimeStamp", DateTime.Now)
+                    @Html.Hidden("employeeId", 1)
+                    @Html.Hidden("jobId", jobId)
+                    <div class="form-floating col-4">
+                        @Html.CheckBox("jobCommentAnom",true)
+                        <span>Comentario Anonimo</span>
+                        <button type="submit" class="bt1 w-100" style="background-color: #12a24a;"><b>Enviar</b></button>
                     </div>
-                </div>
-                <div class="col-md-2 position-absolute bottom-0 end-0 m-4">
-                    <button type="submit" class="bt1 w-100" style="background-color: #12a24a;"><b>Enviar</b></button>
-                </div>
+
+                </form>
+
             </div>
+
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </section>
 
 

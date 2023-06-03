@@ -3,7 +3,7 @@ using Microsoft.Identity.Client;
 
 namespace JobSearch_Grupo7.Models
 {
-    public class JobsPortalDbContext:DbContext
+    public class JobsPortalDbContext : DbContext
     {
         public JobsPortalDbContext(DbContextOptions options) : base(options)
         {
@@ -16,6 +16,7 @@ namespace JobSearch_Grupo7.Models
         public DbSet<Employee> Employee { get; set; }
         public DbSet<InterfaceObject> InterfaceObject { get; set; }
         public DbSet<Job> Job { get; set; }
+        public DbSet<JobComment> JobComment {get;set;}
         public DbSet<JobType> JobType { get; set; }
 
 

@@ -79,6 +79,8 @@ namespace JobSearch_Grupo7.Controllers
             ViewData["countApplicationsPerCompany"] = countApplicationsPerCompany;
             ViewData["companyOpinionResult"] = companyOpinionResult.ToList();
             ViewData["TotalCommentsCount"] = companyOpinionResult.Count();
+            ViewData["SalaryRange"] = 1500;
+            ViewData["ExperienceYear"] = 5;
             return View();
         }
 

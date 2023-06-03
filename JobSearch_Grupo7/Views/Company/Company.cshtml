@@ -66,10 +66,11 @@
 
                             int id = item.jobId;
                             <tr>
-                                <form asp-action="Job" asp-controller="Job">
+                                
                                 <td width="25%">@Html.Label("jobName", name)</td>
                                 <td width="25%">@Html.Label("jobUbication", ubicacion)</td>
                                 <td width="25%">@Html.Label("jobSalary", salary)</td>
+                                <form asp-action="Job" asp-controller="Job">
                                     @Html.Hidden("jobId",id)
                                     <td><button type="submit" class="bt1 w-75" style="background-color: #12a24a;"><b>Detalles</b></button></td>
                                 </form>
