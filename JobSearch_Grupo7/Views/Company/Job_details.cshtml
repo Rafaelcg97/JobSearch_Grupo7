@@ -1,0 +1,83 @@
+﻿@using System.Globalization;
+@{
+    Company company = ViewData["companyData"] as Company;
+    Job job = ViewData["JobData"] as Job;
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agregar empleo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" integrity="sha384-xeJqLiuOvjUBq3iGOjvSQSIlwrpqjSHXpduPd6rQpuiM3f5/ijby8pCsnbu5S81n" crossorigin="anonymous">
+</head>
+<body>
+
+    <section>
+
+        <div class="">
+            <div class="card-body">
+                <div class="text-center">
+                    <h1>Formulario para agregar empleo</h1>
+                </div>
+                <div>
+                    <h5><b>Datos de la empresa</b></h5>
+                    <ul>
+                        <li class="list-group-item"><p><b>Nombre de la empresa: </b>@company.companyName</p></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5><b>Datos del empleo</b></h5>
+                    <div class="row">
+                        <div class="mb-3 col-5">
+                            <label for="exampleFormControlInput1" class="form-label">Nombre del empleo:</label>
+                            @Html.TextBox("jobName","",new{@class="form-control"})
+                        </div>
+                        <div class="col-5">
+                            <label for="exampleFormControlInput2" class="form-label">Área del empleo:</label>
+                            @Html.DropDownList("area",ViewData["jobData"] as SelectList,"Selecione un area", new {@class="form-control"})
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Descripción del empleo:</label>
+                        @Html.TextBox("descripcion","",new{@class="form-control"})
+                    </div>
+                    <div class="mb-3 col-8">
+                        <label for="customRange2" class="form-label">Años de experiencia: </label>
+                        <input type="range" class="form-range" min="0" max="5" id="customRange2" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea2" class="form-label">Requisitos:</label>
+                        @Html.TextArea("requisitos","",new{@class="form-control", @placeHolder="Ingrese requisitos"})
+                    </div>
+                    <div class="input-group mb-3">
+                        <label for="exampleFormControlTextarea2" class="form-label m-2">Salario: </label>
+                        <span class="input-group-text">$</span>
+                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <span class="input-group-text">.00</span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="example" class="form-label"><b>Fecha de expiración de la plaza:</b></label><br>
+                        <input type="date" id="start" name="trip-start" value="2023-05-27" min="1940-01-01" max="2023-05-27" required>
+                        <div class="col-auto">
+                            <span id="texto" class="form-text">
+                                Tu publicación estará activa hasta la fecha que selecciones
+                            </span>
+                        </div>
+                        <div>  
+                            <input type="submit" class="btn btn-primary" value="Guardar" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!--Footer-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>

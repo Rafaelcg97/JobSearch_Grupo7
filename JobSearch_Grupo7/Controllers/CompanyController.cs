@@ -1,6 +1,7 @@
 ﻿using JobSearch_Grupo7.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.Design;
 
 namespace JobSearch_Grupo7.Controllers
 {
@@ -92,5 +93,47 @@ namespace JobSearch_Grupo7.Controllers
             return RedirectToAction("Company", new { companyId = companyOpinionGet.companyId });
 
         }
+        public IActionResult Details( int companyId)
+        {
+            byte[] logo = (from m in _jobsPortalDbContext.InterfaceObject
+                           where m.objectName == "logo"
+                           select m.objectContentImage).First();
+            var citiesList = (from m in _jobsPortalDbContext.City
+                              select m.cityName).ToList();
+
+            var jobTypesList = (from m in _jobsPortalDbContext.JobType select m.jobTypePrompt).ToList();
+
+            var companyDataResult = (from a in _jobsPortalDbContext.Company
+                                     where a.companyId == companyId
+                                     select new
+                                     {
+                                         companyId = a.companyId,
+                                         companyName = a.companyName,
+                                         companyDescription = a.companyDescription,
+                                         compnayDirection = a.companyDirection,
+                                         companyPhone1 = a.companyPhone1,
+                                         companyPhone2 = a.companyPhone2,
+                                         companyEmail = a.companyEmail,
+                                         companyLinkedIn = a.companyLinkedIn,
+                                         companyPicture = a.companyPicture
+                                     }).ToList();
+
+            Company companyData = new Company(companyDataResult[0].companyId, companyDataResult[0].companyName, companyDataResult[0].companyDescription, companyDataResult[0].compnayDirection, companyDataResult[0].companyPhone1, companyDataResult[0].companyPhone2, companyDataResult[0].companyEmail, companyDataResult[0].companyLinkedIn, companyDataResult[0].companyPicture);
+
+
+
+
+            ViewData["logoImage"] = logo;
+            ViewData["citiesList"] = new SelectList(citiesList, "ubicacion");
+            ViewData["jobTypesList"] = new SelectList(jobTypesList, "type");
+            ViewData["companyData"] = companyData;
+            ViewData["SalaryRange"] = 1500;
+            ViewData["ExperienceYear"] = 5;
+
+
+
+            return View("~/Views/Company/Job_details.cshtml");
+        }
+
     }
 }
