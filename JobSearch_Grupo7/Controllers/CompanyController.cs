@@ -135,5 +135,13 @@ namespace JobSearch_Grupo7.Controllers
             return View("~/Views/Company/Job_details.cshtml");
         }
 
+        public IActionResult SendJob(Job newJob)
+        {
+            _jobsPortalDbContext.Add(newJob);
+            _jobsPortalDbContext.SaveChanges();//Aqui hay error por alguna razon no puedo captar los datos 
+            return View("~/Views/Company/Job_details.cshtml");
+
+        }
+
     }
 }

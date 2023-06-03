@@ -105,10 +105,7 @@ namespace JobSearch_Grupo7.Controllers
             return RedirectToAction("Job", new { jobId = jobCommetGet.jobId });
 
         }
-        public IActionResult SendJob()
-        {
 
-            return View("~/Views/Company/Company.cshtml");
-        }
+
     }
 }

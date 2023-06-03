@@ -169,11 +169,14 @@ namespace JobSearch_Grupo7.Controllers
             var jobTypesList = (from m in _jobsPortalDbContext.JobType
                                 select m.jobTypePrompt).ToList();
 
+            List<string> AccountType = new List<string>(new string[] { "Empleado", "Empresa"});
+
             ViewData["logoImage"] = logo;
             ViewData["citiesList"] = new SelectList(citiesList, "ubication");
             ViewData["jobTypesList"] = new SelectList(jobTypesList, "type");
             ViewData["SalaryRange"] = 1500;
             ViewData["ExperienceYear"] = 5;
+            ViewData["AccountType"] = new SelectList(AccountType, "Type");
 
             return View();
         }

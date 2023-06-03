@@ -22,7 +22,7 @@ namespace JobSearch_Grupo7.Models
         public int jobExperienceYear { get; set; }
 
         [Required]
-        [MaxLength(1500), MinLength(200)]
+        [MaxLength(1500), MinLength(10)]
         public string? jobDescription { get; set; }
 
         [Required]
