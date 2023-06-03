@@ -105,7 +105,7 @@
               <div class="col-8">
                 <h4><b>Opiniones</b></h4>
                 <div class="d-flex justify-content-end">
-                    <b>Total de comentarios: </b> 
+                    <b>Total de comentarios: @ViewData["TotalCommentsCount"]</b> 
                 </div>
                 <div>
                     <b class="text-primary">Comentarios:</b>
@@ -136,7 +136,7 @@
                 </div>
             <div class="form-floating col-9">
                 <form asp-controller="Company" asp-action="SendComment">
-                    @Html.TextArea("comentario","", new { @class="form-control", @placeholder="Deja tu opinion sobre esta empresa aqui", @id="floatingTextarea2", @style="height: 100px; width:100%"})
+                    @Html.TextArea("companyOpinion","", new { @class="form-control", @placeholder="Deja tu opinion sobre esta empresa aqui", @id="floatingTextarea2", @style="height: 100px; width:100%"})
 
                     @Html.Hidden("companyOpinionTimeStamp", DateTime.Now)
                     @Html.Hidden("employeeId", 1)

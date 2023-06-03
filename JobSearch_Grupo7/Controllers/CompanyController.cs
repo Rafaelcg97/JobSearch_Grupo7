@@ -78,6 +78,7 @@ namespace JobSearch_Grupo7.Controllers
             ViewData["countJobsPerCompany"] = countJobsPerCompany;
             ViewData["countApplicationsPerCompany"] = countApplicationsPerCompany;
             ViewData["companyOpinionResult"] = companyOpinionResult.ToList();
+            ViewData["TotalCommentsCount"] = companyOpinionResult.Count();
             return View();
         }
 
@@ -85,7 +86,7 @@ namespace JobSearch_Grupo7.Controllers
         {
             _jobsPortalDbContext.Add(companyOpinionGet);
             _jobsPortalDbContext.SaveChanges();
-            return RedirectToAction("Company");
+            return RedirectToAction("Company", new { companyId = 1 });
 
         }
     }
