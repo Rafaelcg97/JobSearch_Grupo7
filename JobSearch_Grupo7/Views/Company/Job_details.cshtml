@@ -1,7 +1,7 @@
 ﻿@using System.Globalization;
 @{
     Company company = ViewData["companyData"] as Company;
-    Company job = ViewData["jobTypesList"] as Company;
+    Job job = ViewData["jobTypesList"] as Job;
 }
 
 <!doctype html>
@@ -29,6 +29,8 @@
 
     <section>
         <form asp-action="SendJob" asp-controller="Company">
+            @Html.Hidden("jobsIsActive", true)
+            @Html.Hidden("jobsPosted", DateTime.Now)
             <div class="">
             <div class="card-body">
                 <div class="text-center">
@@ -49,12 +51,12 @@
                         </div>
                         <div class="col-5">
                             <label for="exampleFormControlInput2" class="form-label">Área del empleo:</label>
-                            @Html.DropDownList("Id_job",ViewData["jobTypesList"] as SelectList,"Selecione un area",new {@class="form-control"})
+                            @Html.DropDownList("jobTypeId",ViewData["jobTypesList"] as SelectList,"Selecione un area",new {@class="form-control"})
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Descripción del empleo:</label>
-                        @Html.TextBox("descripcion","",new{@class="form-control"})
+                        @Html.TextBox("jobDescription","",new{@class="form-control"})
                     </div>
                     <div class="mb-3 col-8">
                         <label for="customRange2" class="form-label">Años de experiencia: </label>
@@ -66,12 +68,12 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea2" class="form-label">Requisitos:</label>
-                        @Html.TextArea("requisitos","",new{@class="form-control", @placeHolder="Ingrese requisitos   "})
+                        @Html.TextArea("jobRequirements","",new{@class="form-control", @placeHolder="Ingrese requisitos   "})
                     </div>
                     <div class="input-group mb-3">
                         <label for="exampleFormControlTextarea2" class="form-label m-2">Salario: </label>
                         <span class="input-group-text">$</span>
-                        <input type="number"   class="form-control" aria-label="Amount (to the nearest dollar)">
+                            @Html.TextBox("JobSalary","",new{@class="form-control"})
                         <span class="input-group-text">.00</span>
                     </div>
 
