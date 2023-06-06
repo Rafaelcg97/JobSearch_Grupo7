@@ -120,9 +120,18 @@ namespace JobSearch_Grupo7.Controllers
 
             Company companyData = new Company(companyDataResult[0].companyId, companyDataResult[0].companyName, companyDataResult[0].companyDescription, companyDataResult[0].compnayDirection, companyDataResult[0].companyPhone1, companyDataResult[0].companyPhone2, companyDataResult[0].companyEmail, companyDataResult[0].companyLinkedIn, companyDataResult[0].companyPicture);
 
+            var jobResultList = (from a in _jobsPortalDbContext.Job
+                                 join c in _jobsPortalDbContext.City on a.cityId equals c.cityId
+                                 join e in _jobsPortalDbContext.Area on a.areaId equals e.areaId
+                                 where a.companyId == companyId
+                                 select new
+                                 {
+                                     jobName = a.jobName,
+                                     jobCity = c.cityName,
+                                     jobId = a.jobId
+                                 }).ToList();
 
-
-
+            ViewData["jobPerCompany"] = jobResultList;
             ViewData["logoImage"] = logo;
             ViewData["citiesList"] = new SelectList(citiesList, "ubicacion");
             ViewData["jobTypesList"] = new SelectList(jobTypesList, "type");

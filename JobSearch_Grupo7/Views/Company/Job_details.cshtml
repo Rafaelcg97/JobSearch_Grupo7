@@ -2,6 +2,7 @@
 @{
     Company company = ViewData["companyData"] as Company;
     Job job = ViewData["jobTypesList"] as Job;
+    Job job1 = ViewData["jobPerCompany"] as Job;
 }
 
 <!doctype html>
@@ -29,8 +30,12 @@
 
     <section>
         <form asp-action="SendJob" asp-controller="Company">
-            @Html.Hidden("jobsIsActive", true)
+            @Html.Hidden("jobsIsActive", "1")
             @Html.Hidden("jobsPosted", DateTime.Now)
+            @Html.Hidden("cityId",job.cityId)  @*Flata obtener esots datos*@
+            @Html.Hidden("areaId",job.areaId)   @*y este *@
+            @Html.Hidden("companyId",company.companyId)
+
             <div class="">
             <div class="card-body">
                 <div class="text-center">
@@ -51,7 +56,7 @@
                         </div>
                         <div class="col-5">
                             <label for="exampleFormControlInput2" class="form-label">Área del empleo:</label>
-                            @Html.DropDownList("jobTypeId",ViewData["jobTypesList"] as SelectList,"Selecione un area",new {@class="form-control"})
+                            @Html.DropDownList("jobTypePrompt",ViewData["jobTypesList"] as SelectList,"Selecione un area",new {@class="form-control"})
                         </div>
                     </div>
                     <div class="mb-3">
@@ -61,8 +66,7 @@
                     <div class="mb-3 col-8">
                         <label for="customRange2" class="form-label">Años de experiencia: </label>
                         <div>
-                            <input type="range" class="form-range" name="valor" id="valor" value="1" step="1" min="0" max="10" onchange="capturar();">
-                            <h3> <span id='res'>1</span></h3>
+                                @Html.TextBox("jobExperienceYear","",new{@class="form-control"})
                         </div>
                        
                     </div>
@@ -79,7 +83,7 @@
 
                     <div class="col-md-6">
                         <label for="example" class="form-label"><b>Fecha de expiración de la plaza:</b></label><br>
-                            <input type="date" id="start" name="trip-start" value="2023-05-27" min="1940-01-01"  required>
+                            @Html.TextBox("jobExpiration","",new{@class="form-control"})
                             <div class="col-auto">
                             <span id="texto" class="form-text">
                                 Tu publicación estará activa hasta la fecha que selecciones
